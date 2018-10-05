@@ -162,7 +162,7 @@ json示例:
 
 ## 皮肤道具相关
 ### 查询用户拥有皮肤
-接口地址: /api/skins/:account
+接口地址: /api/skins/user/:account
 
 请求方式: GET
 
@@ -180,7 +180,7 @@ json示例:
 | 应答 |{"code":0, "skinlist":[{"skinID": "001","skinName": "ppa","description": "it's ppa.","skinValue": "0","isInStore": "false","weight": "1","elasticity": "8","roughness": "2","maxSpeed": "5"}, {"skinID": "001","skinName": "ppb","description": "it's ppb.","skinValue": "2","isInStore": "true","weight": "2","elasticity": "3","roughness": "5","maxSpeed": "7"}]}|
 
 ### 查询用户拥有道具
-接口地址: /api/props/:account
+接口地址: /api/props/user/:account
 
 请求方式: GET
 
@@ -198,7 +198,7 @@ json示例:
 | 应答 |{"code":0, "proplist":[{"propsID": "001","propsName": "sjk","description": "it's sjk.","propsValue": "0","isInStore": "false","propsNumber": "1"}, {"propsID": "002","propsName": "jsk","description": "it's jsk.","propsValue": "10","isInStore": "true","propsNumber": "5"}]}|
 
 ### 查询商城出售皮肤
-接口地址: /api/skinsInStore
+接口地址: /api/skins/store
 
 请求方式: GET
 
@@ -216,7 +216,7 @@ json示例:
 | 应答 |{"code":0, "skinlist":[{"skinID": "001","skinName": "ppa","description": "it's ppa.","skinValue": "0","isInStore": "false","weight": "1","elasticity": "8","roughness": "2","maxSpeed": "5"}, {"skinID": "001","skinName": "ppb","description": "it's ppb.","skinValue": "2","isInStore": "true","weight": "2","elasticity": "3","roughness": "5","maxSpeed": "7"}]}|
 
 ### 查询商城出售道具
-接口地址: /api/propsInStore
+接口地址: /api/props/store
 
 请求方式: GET
 
@@ -231,7 +231,7 @@ json示例:
 
 | 类型 |           json          |
 | ---- | ----------------------- |
-| 应答 |{"code":0, "proplist":[{"propsID": "001","propsName": "sjk","description": "it's sjk.","propsValue": "0","isInStore": "true"}, {"propsID": "002","propsName": "jsk","description": "it's jsk.","propsValue": "10","isInStore": "true"}]}|
+| 应答 |{"code":0, "proplist":[{"propsID": "001","propsName": "sjk","description": "it's sjk.","propsValue": "0","isInStore": "true","propsNumber": ""}, {"propsID": "002","propsName": "jsk","description": "it's jsk.","propsValue": "10","isInStore": "true","propsNumber": ""}]}|
 
 ### 用户购买道具或皮肤
 接口地址: /api/purchase
@@ -276,7 +276,7 @@ json示例:
 | 应答 |{"code":0}|
 
 ## 游戏相关
-### 查询游戏关卡
+### 查询游戏关卡查询
 接口地址: /api/gamelevel
 
 请求方式: GET
