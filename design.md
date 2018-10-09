@@ -3,7 +3,7 @@
 ### 数据库设计
 
 ##### 用户表
-用户基本信息表
+用户基本信息表 users
 
 > 存储位置： 服务器
 
@@ -15,7 +15,7 @@
 | password|   String  |  -   |  用户密码  |
 | goalCoin|  Integer  |  -   |用户金币数量|
 
-用户获得消耗道具表
+用户获得消耗道具表 users_props
 
 > 存储位置： 服务器
 
@@ -25,7 +25,7 @@
 |  propsID  |  Integer  | 外键 | 游戏道具ID |
 |propsNumber|  Integer  |  -   |获得道具数量|
 
-用户获得皮肤表
+用户获得皮肤表 users_skins
 
 > 存储位置： 服务器
 
@@ -34,7 +34,7 @@
 | account |  Integer  | 外键 |  用户账号  |
 |  skinID |  Integer  | 外键 | 游戏皮肤ID |
 
-道具表
+道具表  props
 
 > 存储位置： 本地（存储ue4设定包等资源类文件）、服务器（存储展示数据）
 
@@ -46,7 +46,7 @@
 | propsValue|  Integer  |   -  |  道具价值  |
 | isInStore |  Boolean  |   -  |是否放入商场|
 
-皮肤表
+皮肤表 skins
 
 > 存储位置： 本地（存储ue4设定包等资源类文件）、服务器（存储展示数据）
 
@@ -62,7 +62,7 @@
 | roughness |  Integer  |   -  |  粗糙程度  |
 |  maxSpeed |  Integer  |   -  |  最大速度  |
 
-地图信息表
+地图信息表 maps
 
 > 存储位置： 本地（存储ue4设定包等资源类文件）、服务器（存储展示数据）
 
@@ -72,7 +72,7 @@
 |  mapName  |   String  |   -  |  地图名称  |
 |description|   String  |   -  |  地图描述  |
 
-关卡信息表
+关卡信息表 levels
 
 > 存储位置： 本地（存储ue4设定包等资源类文件）、服务器（存储展示数据）
 
@@ -82,7 +82,7 @@
 | difficulty|   Integer |   -  |  关卡难度  |
 | levelName |   String  |   -  |  关卡名称  |
 |   mapID   |   Integer | 外键 |关卡使用地图ID|
-|   Time    |   Integer |   -  |简单过关秒数|
+| easy_time |   Integer |   -  |简单过关秒数|
 |  propsID  |  Integer  | 外键 |过关获得道具ID|
 |  skinID   |  Integer  | 外键 |过关获得皮肤ID|
 | levelGold |  Integer  |   -  |过关获得金币数量|
@@ -93,18 +93,19 @@
 |  endPosY  |  Integer  |   -  |  终点Y位置 |
 |  endPosZ  |  Integer  |   -  |  终点Z位置 |
 
-关卡道具表
+关卡道具表 levels_props
 
 > 存储位置： 服务器（暂定）
 
 |   属性名  |  数据类型  |  键  |    描述    |
 | --------- | --------- | ---- | --------- |
-|  levelID  |  Integer  | 主键 |   关卡ID   |
+|  levelID  |  Integer  | 外键 |   关卡ID   |
 |  propsID  |  Integer  | 外键 |   道具ID   |
 | propsPosX |  Integer  |   -  |  道具X位置 |
 | propsPosY |  Integer  |   -  |  道具Y位置 |
+| propsPosZ |  Integer  |   -  |  道具Z位置 |
 
-用户通关记录表
+用户通关记录表 users_levelRecord
 
 > 存储位置： 服务器（存储展示数据）
 
@@ -112,16 +113,16 @@
 | ------- | --------- | ---- | --------- |
 | account |  Integer  | 外键 |  用户账号  |
 | levelID |  Integer  | 外键 |   关卡ID   |
-|   time  |  Integer  |  -   |通关时间秒数|
+|record_time|Integer  |  -   |通关时间秒数|
 
-游戏版本号
+游戏版本号 game_version
 
 > 存储位置： 本地（存储ue4设定包等资源类文件）、服务器（存储展示数据）
 
 |  属性名  |  数据类型  |  键  |    描述    |
 | -------- | --------- | ---- | --------- |
 |versionNum|   String  | 主键 |   版本号   |
-|   time   |    Date   |   -  |版本更新时间|
+|update_time|    Date  |   -  |版本更新时间|
 
 ### 接口设计
 
