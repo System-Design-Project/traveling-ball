@@ -1,6 +1,6 @@
 from flask_cors import CORS
 from flask import render_template
-from backend import db, app
+from server import db, app
 
 cors = CORS(app, resources={"/api/*": {"origins": "*"}})
 
@@ -11,4 +11,3 @@ def catch_all(path):
     return render_template("index.html")
 
 from .usr import *
-from .dlg import *

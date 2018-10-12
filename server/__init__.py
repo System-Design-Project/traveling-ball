@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, static_folder = "./dist/static", template_folder = "./dist")
@@ -8,5 +9,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SECRET_KEY']='Secrets!'   #随意设置
 
 db = SQLAlchemy(app)
+
+login_manager = LoginManager()
+
+login_manager.init_app(app)
+#认证加密程度
+login_manager.session_protection='strong'
 
 from .route import *
