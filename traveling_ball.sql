@@ -8,7 +8,7 @@ CREATE TABLE users(
     nickname VARCHAR(32) COLLATE utf8_bin NOT NULL,
     mail VARCHAR(80),
     password VARCHAR(80) NOT NULL,
-    goalCoin INT(11) NOT NULL,
+    goalCoin INT(11) DEFAULT 0,
     INDEX(account),
     PRIMARY KEY (account)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -87,8 +87,8 @@ CREATE TABLE levels(
     mapID INT(11) NOT NULL,
     skinID INT(11),
     propsID INT(11),
-    levelGold INT(11),
-    easy_time timestamp NOT NULL,
+    levelGold INT(11) DEFAULT 0,
+    easy_time INT(11) NOT NULL,
     startPosX INT(11) NOT NULL,
     startPosY INT(11) NOT NULL,
     startPosZ INT(11) NOT NULL,
@@ -121,10 +121,11 @@ CREATE TABLE users_levelRecord(
     id INT(11) NOT NULL AUTO_INCREMENT,
     levelID INT(11) NOT NULL,
     account VARCHAR(12) NOT NULL,
-    record_time timestamp NOT NULL,
+    record_time INT(11) NOT NULL,
     INDEX(levelID),
     FOREIGN KEY (account) REFERENCES users(account) ON UPDATE CASCADE,
     FOREIGN KEY (levelID) REFERENCES levels(levelID) ON UPDATE CASCADE,
     PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 AUTO_INCREMENT=1;
+-- INSERT INTO tb_name(field1,...) VALUES(value1,...);
