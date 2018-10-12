@@ -276,7 +276,7 @@ json示例:
 | 请求 |   type   | String |    Y    |            购买商品类型'skin'、'props'          |
 | 请求 |  goodId  | Integer|    Y    |                  购买商品id                    |
 | 请求 | goodNum  | Integer|    Y    |                 购买商品数量                   |
-| 应答 |   code   | Integer|    Y    |  返回购买结果，0购买成功，1金币不足,其他系统错误  |
+| 应答 |   code   | Integer|    Y    |  返回购买结果，0购买成功，1金币不足，2重复购买皮肤,其他系统错误  |
 
 json示例:
 

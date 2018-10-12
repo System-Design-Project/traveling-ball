@@ -1,0 +1,45 @@
+后端
+flask windows下安装
+
+预先装好py3.0
+没有需要安装virtualenv
+
+flask官方文档
+安装： https://dormousehole.readthedocs.io/en/latest/installation.html
+入门： http://docs.jinkan.org/docs/flask/quickstart.html
+
+创建虚拟环境
+py -3 -m venv venv
+（直接装的py3 就用python -m venv venv）
+
+激活
+1.切换到工程文件下创建虚拟环境位置
+2.venv\Scripts\activate
+
+安装flask
+pip install flask
+
+已安装组件
+flask-sqlalchemy
+flask-cors
+pymysql
+flask_login
+
+flask-sqlalchemy使用
+https://blog.csdn.net/zengchen__acmer/article/details/45032033
+https://www.cnblogs.com/alima/p/5734992.html
+
+login manage
+登录登出管理
+http://www.pythondoc.com/flask-login/
+
+启动工程
+在虚拟环境中直接运行启动工程的.py文件即可
+
+etc.
+Python run.py
+
+一个fllask demo
+https://github.com/longzx-9527/flask_spider/blob/master/app/mylogger.py
+
+访问地址 启动后端程序机器的ip地址:5001
