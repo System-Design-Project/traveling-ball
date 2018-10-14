@@ -17,7 +17,7 @@ CREATE TABLE props(
     propsID INT(11) NOT NULL AUTO_INCREMENT,
     propsName VARCHAR(20) NOT NULL,
     description VARCHAR(255),
-    propsValue INT(11) NOT NULL,
+    value INT(11) NOT NULL,
     isInStore BOOLEAN DEFAULT FALSE,
     INDEX(propsID),
     PRIMARY KEY (propsID)
@@ -40,7 +40,7 @@ CREATE TABLE skins(
     skinID INT(11) NOT NULL AUTO_INCREMENT,
     skinName VARCHAR(20) NOT NULL,
     description VARCHAR(255),
-    skinValue INT(11) NOT NULL,
+    value INT(11) NOT NULL,
     isInStore BOOLEAN DEFAULT FALSE,
     weight INT(11) NOT NULL,
     elasticity INT(11) NOT NULL,
@@ -128,4 +128,41 @@ CREATE TABLE users_levelRecord(
     PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 AUTO_INCREMENT=1;
--- INSERT INTO tb_name(field1,...) VALUES(value1,...);
+
+-- test data
+INSERT INTO users(account,nickname,mail,password,goalCoin) VALUES('root','backendtest','12345678@qq.com','12345678',30);
+INSERT INTO users(account,nickname,mail,password) VALUES('1512190210','1','87654321@qq.com','12345678');
+
+INSERT INTO props(propsName,description,value,isInStore) VALUES('prop1','this is prop1',3,FALSE);
+INSERT INTO props(propsName,description,value,isInStore) VALUES('prop2','this is prop2',2,TRUE);
+INSERT INTO props(propsName,description,value,isInStore) VALUES('prop3','this is prop3',10,TRUE);
+INSERT INTO props(propsName,description,value,isInStore) VALUES('prop4','this is prop4',40,TRUE);
+
+INSERT INTO users_props(account,propsID,propsNumber) VALUES('root',2,1);
+INSERT INTO users_props(account,propsID,propsNumber) VALUES('1512190210',1,5);
+INSERT INTO users_props(account,propsID,propsNumber) VALUES('root',1,3);
+
+INSERT INTO skins(skinName, description, value, isInStore, weight, elasticity, roughness, maxSpeed)
+VALUES('skin1','this is skin1',5,TRUE,1,2,3,4);
+INSERT INTO skins(skinName, description, value, isInStore, weight, elasticity, roughness, maxSpeed)
+VALUES('skin2','this is skin3',10,FALSE,4,3,2,1);
+INSERT INTO skins(skinName, description, value, isInStore, weight, elasticity, roughness, maxSpeed)
+VALUES('skin3','this is skin3',30,TRUE,5,5,5,5);
+
+INSERT INTO users_skins(account,skinID) VALUES('1512190210',1);
+INSERT INTO users_skins(account,skinID) VALUES('root',1);
+INSERT INTO users_skins(account,skinID) VALUES('root',2);
+
+INSERT INTO maps(mapName, description) VALUES('map1','this is map1');
+INSERT INTO maps(mapName, description) VALUES('map2','this is map2');
+
+INSERT INTO levels(levelName,difficulty,mapID,skinID,levelGold,easy_time,startPosX,startPosY,
+  startPosZ,endPosX,endPosY,endPosZ) VALUES('level1',1,1,1,5,60,0,0,0,100,100,0);
+INSERT INTO levels(levelName,difficulty,mapID,propsID,levelGold,easy_time,startPosX,startPosY,
+  startPosZ,endPosX,endPosY,endPosZ) VALUES('level2',3,2,3,10,48,0,1,0,100,100,0);
+INSERT INTO levels(levelName,difficulty,mapID,skinID,propsID,levelGold,easy_time,startPosX,startPosY,
+  startPosZ,endPosX,endPosY,endPosZ) VALUES('level3',5,1,3,4,15,61,0,0,1,100,100,0);
+
+INSERT INTO users_levelRecord(levelID,account,record_time) VALUES(1,'root',57);
+
+INSERT INTO game_version(versionNum,update_time) VALUES('1.0.0', CURRENT_TIMESTAMP);

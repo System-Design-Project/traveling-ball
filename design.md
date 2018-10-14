@@ -127,7 +127,7 @@
 ### 接口设计
 
 ### 用户相关
-#### 用户注册
+#### 用户注册 ~
 接口地址: /api/newAccount
 
 请求方式: POST
@@ -149,7 +149,7 @@ json示例:
 | 请求 |{"account":"13000000000","nickname":"111","password":"12345678", "mail":"12345678@qq.com"}|
 | 应答 |                                   {"code":0}                                             |
 
-#### 用户登录
+#### 用户登录 ~
 接口地址: /api/login
 
 请求方式: POST
@@ -171,7 +171,7 @@ json示例:
 | 请求 |{"account":"000000", "password":"12345678"}|
 | 应答 |{"code":0", nickname":"ccc", "goalCoin":"0"}|
 
-#### 用户登出
+#### 用户登出 ~
 接口地址: /api/logout
 
 请求方式: POST
@@ -191,7 +191,7 @@ json示例:
 | 应答 |             {"code":0"}                |
 
 ## 皮肤道具相关
-### 查询用户拥有皮肤
+### 查询用户拥有皮肤 ~
 接口地址: /api/skins/user/:account
 
 请求方式: GET
@@ -209,7 +209,7 @@ json示例:
 | ---- | ----------------------- |
 | 应答 |{"code":0, "skinlist":[{"skinID": "001","skinName": "ppa","description": "it's ppa.","skinValue": "0","isInStore": "false","weight": "1","elasticity": "8","roughness": "2","maxSpeed": "5"}, {"skinID": "001","skinName": "ppb","description": "it's ppb.","skinValue": "2","isInStore": "true","weight": "2","elasticity": "3","roughness": "5","maxSpeed": "7"}]}|
 
-### 查询用户拥有道具
+### 查询用户拥有道具 ~
 接口地址: /api/props/user/:account
 
 请求方式: GET
@@ -227,7 +227,7 @@ json示例:
 | ---- | ----------------------- |
 | 应答 |{"code":0, "proplist":[{"propsID": "001","propsName": "sjk","description": "it's sjk.","propsValue": "0","isInStore": "false","propsNumber": "1"}, {"propsID": "002","propsName": "jsk","description": "it's jsk.","propsValue": "10","isInStore": "true","propsNumber": "5"}]}|
 
-### 查询商城出售皮肤
+### 查询商城出售皮肤 ~
 接口地址: /api/skins/store
 
 请求方式: GET
@@ -245,7 +245,7 @@ json示例:
 | ---- | ----------------------- |
 | 应答 |{"code":0, "skinlist":[{"skinID": "001","skinName": "ppa","description": "it's ppa.","skinValue": "0","isInStore": "false","weight": "1","elasticity": "8","roughness": "2","maxSpeed": "5"}, {"skinID": "001","skinName": "ppb","description": "it's ppb.","skinValue": "2","isInStore": "true","weight": "2","elasticity": "3","roughness": "5","maxSpeed": "7"}]}|
 
-### 查询商城出售道具
+### 查询商城出售道具 ~
 接口地址: /api/props/store
 
 请求方式: GET
@@ -263,7 +263,7 @@ json示例:
 | ---- | ----------------------- |
 | 应答 |{"code":0, "proplist":[{"propsID": "001","propsName": "sjk","description": "it's sjk.","propsValue": "0","isInStore": "true","propsNumber": ""}, {"propsID": "002","propsName": "jsk","description": "it's jsk.","propsValue": "10","isInStore": "true","propsNumber": ""}]}|
 
-### 用户购买道具或皮肤
+### 用户购买道具或皮肤 ~
 接口地址: /api/purchase
 
 请求方式: POST
@@ -276,7 +276,7 @@ json示例:
 | 请求 |   type   | String |    Y    |            购买商品类型'skin'、'props'          |
 | 请求 |  goodId  | Integer|    Y    |                  购买商品id                    |
 | 请求 | goodNum  | Integer|    Y    |                 购买商品数量                   |
-| 应答 |   code   | Integer|    Y    |  返回购买结果，0购买成功，1金币不足，2重复购买皮肤,其他系统错误  |
+| 应答 |   code   | Integer|    Y    |  返回购买结果，0购买成功，1金币不足，2重复购买皮肤,3无此物品，其他系统错误  |
 
 json示例:
 
@@ -285,7 +285,7 @@ json示例:
 | 请求 |{"account":"000000", "type":"props", "goodId":"001", "goodNum":3}|
 | 应答 |{"code":0}|
 
-### 用户使用道具
+### 用户使用道具 ~
 接口地址: /api/useProp
 
 请求方式: POST
@@ -307,7 +307,7 @@ json示例:
 
 ## 游戏相关
 ### 查询游戏关卡查询
-接口地址: /api/gamelevel
+接口地址: /api/levels/all
 
 请求方式: GET
 
@@ -325,7 +325,7 @@ json示例:
 | 应答 |{"code":0, "levellist":[{"levelID": "001","difficulty": "1","levelName": "level 1","mapID": "001","Time": "60"}, {"propsID": "","skinID": "001","levelGold": "100"}]}|
 
 ### 查询用户通过游戏关卡进度
-接口地址: /api/gamelevel/:account
+接口地址: /api/levels/user/:account
 
 请求方式: GET
 
@@ -343,7 +343,7 @@ json示例:
 | 应答 |{"code":0, "levellist":[{"levelID": "001","time": "48"}]}|
 
 ### 用户通关记录
-接口地址: /api/gamelevel/:account/:levelid
+接口地址: /api/gameRecord/:account/:levelid
 
 请求方式: POST
 
@@ -353,16 +353,19 @@ json示例:
 | ---- | ------- | ------- | ------- | --------------------------------------------- |
 | 请求 |   time   |  Integer |    Y    |                 通关花费时间                 |
 | 应答 |   code   |  Integer |    Y    |  返回查询结果，0新纪录，1非新纪录，其他更改失败 |
+| 应答 | propsName|  Integer |    Y    |                通关获得道具名称              |
+| 应答 | skinName |  Integer |    Y    |                通关获得皮肤名称              |
+| 应答 | levelGold|  Integer |    Y    |                  通关获得金币                |
 
 json示例:
 
 | 类型 |    json    |
 | ---- | ---------- |
 | 请求 |{"time": 48}|
-| 应答 |{"code":  0}|
+| 应答 |{"code":  0, 'propsName': 'prop1', 'skinName': "", 'levelGold': 5}|
 
 ### 获得金币、道具及皮肤
-接口地址: /award/:account
+接口地址: .api/award/:account
 
 请求方式: GET
 

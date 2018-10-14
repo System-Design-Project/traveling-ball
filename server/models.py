@@ -36,28 +36,30 @@ class User(db.Model,UserMixin):
         user += 'mail: %r\n' % (self.mail)
         return user
 
-class Props(db.Model):
+class Prop(db.Model):
     #__bind_key__ = 'xnet_master'
     __tablename__ = 'props'
 
     propsID = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    propsname = db.Column(db.String(20), nullable=False)
+    propsName = db.Column(db.String(20), nullable=False)
     description = db.Column(db.String(255))
-    propsValue = db.Column(db.Integer, nullable=False)
+    value = db.Column(db.Integer, nullable=False)
     isInStore = db.Column(db.Boolean, default=False)
+    usersMsg = db.relationship("User_Props", back_populates="propMsg")
+    levelsMsg = db.relationship("Level", back_populates="propMsg")
 
     def __init__(self, propsname, description, propsValue, isInStore):
-        self.propsname = propsname
+        self.propsName = propsname
         self.description = description
-        self.propsValue = propsValue
+        self.value = propsValue
         self.isInStore = isInStore
 
     def __repr__(self):
         props = '<Props> '
         props += 'propsID: %r\n' % (self.propsID)
-        props += 'propsname: %r\n' % (self.propsname)
+        props += 'propsname: %r\n' % (self.propsName)
         props += 'description: %r\n' % (self.description)
-        props += 'propsValue: %r\n' % (self.propsValue)
+        props += 'propsValue: %r\n' % (self.value)
         props += 'isInStore: %r\n' % (self.isInStore)
         return props
 
@@ -68,6 +70,7 @@ class User_Props(db.Model):
     account = db.Column(db.String(12), db.ForeignKey('users.account'), nullable=False)
     propsID = db.Column(db.Integer, db.ForeignKey('props.propsID'), nullable=False)
     propsNumber = db.Column(db.Integer, nullable=False)
+    propMsg = db.relationship("Prop", back_populates="usersMsg")
 
     def __init__(self, account, propsID, propsNumber):
         self.account = account
@@ -87,19 +90,21 @@ class Skin(db.Model):
     __tablename__ = 'skins'
 
     skinID = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    skinsname = db.Column(db.String(20), nullable=False)
+    skinName = db.Column(db.String(20), nullable=False)
     description = db.Column(db.String(255))
-    skinsValue = db.Column(db.Integer, nullable=False)
+    value = db.Column(db.Integer, nullable=False)
     isInStore = db.Column(db.Boolean, default=False)
     weight = db.Column(db.Integer, nullable=False)
     elasticity = db.Column(db.Integer, nullable=False)
     roughness = db.Column(db.Integer, nullable=False)
     maxSpeed = db.Column(db.Integer, nullable=False)
+    usersMsg = db.relationship("User_Skins", back_populates="skinMsg")
+    levelsMsg = db.relationship("Level", back_populates="skinMsg")
 
     def __init__(self, skinsname, description, skinsValue, isInStore,
                   weight, elasticity, roughness, maxSpeed):
-        self.skinsname = skinsname
-        self.skinsValue = skinsValue
+        self.skinName = skinsname
+        self.value = skinsValue
         self.description = description
         self.isInStore = isInStore
         self.weight = weight
@@ -110,17 +115,18 @@ class Skin(db.Model):
     def __repr__(self):
         skin = '<Skin> '
         skin += 'skinID: %r\n' % (self.skinID)
-        skin += 'skinsname: %r\n' % (self.skinsname)
-        skin += 'skinsValue: %r\n' % (self.skinsValue)
+        skin += 'skinsname: %r\n' % (self.skinName)
+        skin += 'skinsValue: %r\n' % (self.value)
         skin += 'isInStore: %r\n' % (self.isInStore)
         return skin
 
 class User_Skins(db.Model):
-    __tablename__ = 'user_skins'
+    __tablename__ = 'users_skins'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     account = db.Column(db.String(12), db.ForeignKey('users.account'), nullable=False)
     skinID = db.Column(db.Integer, db.ForeignKey('skins.skinID'), nullable=False)
+    skinMsg = db.relationship("Skin", back_populates="usersMsg")
 
     def __init__(self, account, skinID):
         self.account = account
@@ -149,23 +155,24 @@ class Game_Version(db.Model):
         game_version += 'update_time: %r\n' % (self.update_time)
         return game_version
 
-class Map(db.Model):
+class GameMap(db.Model):
     __tablename__ = 'maps'
 
     mapID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     mapName = db.Column(db.String(20), nullable=False)
     description = db.Column(db.String(255))
+    levelsMsg = db.relationship("Level", back_populates="mapMsg")
 
     def __init__(self, mapName, description):
         self.mapName = mapName
         self.description = description
 
     def __repr__(self):
-        map = '<Map> '
-        map += 'mapID: %r\n' % (self.mapID)
-        map += 'mapName: %r\n' % (self.mapName)
-        map += 'description: %r\n' % (self.description)
-        return map
+        gamemap = '<GameMap> '
+        gamemap += 'mapID: %r\n' % (self.mapID)
+        gamemap += 'mapName: %r\n' % (self.mapName)
+        gamemap += 'description: %r\n' % (self.description)
+        return gamemap
 
 class Level(db.Model):
     __tablename__ = 'levels'
@@ -184,6 +191,10 @@ class Level(db.Model):
     endPosX = db.Column(db.Integer, nullable=False)
     endPosY = db.Column(db.Integer, nullable=False)
     endPosZ = db.Column(db.Integer, nullable=False)
+    mapMsg = db.relationship("GameMap", back_populates="levelsMsg")
+    skinMsg = db.relationship("Skin", back_populates="levelsMsg")
+    propMsg = db.relationship("Prop", back_populates="levelsMsg")
+    usrRecoed = db.relationship("User_LevelRecord", back_populates="levelsMsg")
 
     def __init__(self, levelName, difficulty, mapID, skinID, propsID,
     levelGold, easy_time, startPosX, startPosY, startPosZ, endPosX, endPosY, endPosZ):
@@ -247,6 +258,7 @@ class User_LevelRecord(db.Model):
     levelID = db.Column(db.Integer, db.ForeignKey('levels.levelID'), nullable=False)
     account = db.Column(db.String(12), db.ForeignKey('users.account'), nullable=False)
     record_time = db.Column(db.Integer, nullable=False)
+    levelsMsg = db.relationship("Level", back_populates="usrRecoed")
 
     def __init__(self, levelID, account, record_time):
         self.levelID = levelID

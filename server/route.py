@@ -11,3 +11,5 @@ def catch_all(path):
     return render_template("index.html")
 
 from .usr import *
+from .skin_and_prop import *
+from .game import *
