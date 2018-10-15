@@ -2,7 +2,7 @@ from flask import jsonify, request
 from flask_login import login_required
 from server import db, app
 from .Handler.hd_base import require
-from .models import Game_Version, Level, User_LevelRecord, User, User_Props, User_Skins
+from .models import *
 
 @app.route('/api/levels/user/<account>')
 @login_required
@@ -179,12 +179,16 @@ def getAward(account):
         return jsonify(response)
 
     if m_type == 'skin':
+        if not Skin.query.get(m_goodId):
+            return jsonify(response)
         addUsrSkin = User_Skins.query.filter_by(account=account,skinID=m_goodId)
         if not addUsrSkin:
             addUsrSkin = User_Skins(account=account,skinID=m_goodId)
             db.session.add(addUsrSkin)
         response['code'] = 0
     elif m_type == 'props':
+        if not Prop.query.get(m_goodId):
+            return jsonify(response)
         addUsrProp = User_Props.query.filter_by(account=account, propsID=m_goodId).first()
         if not addUsrProp:
             addUsrProp = User_Props(account=account, propsID=m_goodId, propsNumber=1)

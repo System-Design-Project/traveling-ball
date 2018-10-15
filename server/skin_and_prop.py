@@ -24,7 +24,11 @@ def getUserSkins(account):
                 'skinsName': i.skinMsg.skinName,
                 'description': i.skinMsg.description,
                 'skinsValue': i.skinMsg.value,
-                'isInStore': i.skinMsg.isInStore
+                'isInStore': i.skinMsg.isInStore,
+                "weight": i.skinMsg.weight,
+                "elasticity": i.skinMsg.elasticity,
+                "roughness": i.skinMsg.roughness,
+                "maxSpeed": i.skinMsg.maxSpeed
             }
             skinlist.append(tmpSkin)
         response['skinlist'] = skinlist
@@ -51,7 +55,11 @@ def getSkinsAll():
                 'skinsName': i.skinName,
                 'description': i.description,
                 'skinsValue': i.value,
-                'isInStore': i.isInStore
+                'isInStore': i.isInStore,
+                "weight": i.weight,
+                "elasticity": i.elasticity,
+                "roughness": i.roughness,
+                "maxSpeed": i.maxSpeed
             }
             skinlist.append(tmpSkin)
         response['skinlist'] = skinlist
@@ -78,7 +86,11 @@ def getSkinsInstore():
                 'skinsName': i.skinName,
                 'description': i.description,
                 'skinsValue': i.value,
-                'isInStore': i.isInStore
+                'isInStore': i.isInStore,
+                "weight": i.weight,
+                "elasticity": i.elasticity,
+                "roughness": i.roughness,
+                "maxSpeed": i.maxSpeed
             }
             skinlist.append(tmpSkin)
         response['skinlist'] = skinlist

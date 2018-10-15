@@ -261,7 +261,7 @@ json示例:
 
 | 类型 |           json          |
 | ---- | ----------------------- |
-| 应答 |{"code":0, "proplist":[{"propsID": "001","propsName": "sjk","description": "it's sjk.","propsValue": "0","isInStore": "true","propsNumber": ""}, {"propsID": "002","propsName": "jsk","description": "it's jsk.","propsValue": "10","isInStore": "true","propsNumber": ""}]}|
+| 应答 |{"code":0, "proplist":[{"propsID": "001","propsName": "sjk","description": "it's sjk.","propsValue": "0","isInStore": "true"}, {"propsID": "002","propsName": "jsk","description": "it's jsk.","propsValue": "10","isInStore": "true"}]}|
 
 ### 用户购买道具或皮肤 ~
 接口地址: /api/purchase
@@ -306,7 +306,7 @@ json示例:
 | 应答 |{"code":0}|
 
 ## 游戏相关
-### 查询游戏关卡查询
+### 查询游戏关卡查询 ~
 接口地址: /api/levels/all
 
 请求方式: GET
@@ -322,9 +322,9 @@ json示例:
 
 | 类型 |                          json                        |
 | ---- | ---------------------------------------------------- |
-| 应答 |{"code":0, "levellist":[{"levelID": "001","difficulty": "1","levelName": "level 1","mapID": "001","Time": "60"}, {"propsID": "","skinID": "001","levelGold": "100"}]}|
+| 应答 |{"code":0, "levellist":[{levelID: 1,levelName: "level 1",difficulty: 1,mapMsg: {mapID: 1,mapName: 'map1',description: 'this is map1'}}, {levelID: 2,levelName: "level 2",difficulty: 3,mapMsg: {mapID: 2,mapName: 'map2',description: 'this is map2'}}]}|
 
-### 查询用户通过游戏关卡进度
+### 查询用户通过游戏关卡进度 ~
 接口地址: /api/levels/user/:account
 
 请求方式: GET
@@ -340,7 +340,25 @@ json示例:
 
 | 类型 |                          json                        |
 | ---- | ---------------------------------------------------- |
-| 应答 |{"code":0, "levellist":[{"levelID": "001","time": "48"}]}|
+| 应答 |{"code":0, "levellist":[{levelID: 1,levelName: "level 1",difficulty: 1,mapMsg: {mapID: 1,mapName: 'map1',description: 'this is map1'}, time:60}]}|
+
+### 查询单个关卡具体信息 ~
+接口地址: /api/level/:levelid
+
+请求方式: GET
+
+请求参数及返回值说明:
+
+| 类型 |  参数名  |  类型   | 是否必须 |                      说明                     |
+| ---- | ------- | ------- | ------- | -------------------------------------------- |
+| 应答 |   code   | Integer |    Y    |       返回查询结果，0查询成功，其他查询失败     |
+| 应答 | levelMsg |levelItem|    Y    |                 返回单个关卡信息              |
+
+json示例:
+
+| 类型 |                          json                        |
+| ---- | ---------------------------------------------------- |
+| 应答 |{"code":0, "levelMsg":{levelID: 1,levelName: 'level1',difficulty: 1,mapMsg: {mapID: 1,mapName: 'map1',description: 'this is map1'}, skinMsg: {skinID: 2,skinName: 'skin2',description: 'this is skin2'},propsMsg: {propsID: 1,propsName: 'prop1',description: 'this is prop1'},levelGold: 5,easy_time: 60,startPosX: 0,startPosY: 0,startPosZ: 99,endPosX: 99,endPosY: 99,endPosZ: 99}}|
 
 ### 用户通关记录
 接口地址: /api/gameRecord/:account/:levelid
@@ -362,7 +380,7 @@ json示例:
 | 类型 |    json    |
 | ---- | ---------- |
 | 请求 |{"time": 48}|
-| 应答 |{"code":  0, 'propsName': 'prop1', 'skinName': "", 'levelGold': 5}|
+| 应答 |{"code":  0, 'propsName': 'prop1', 'skinName': None, 'levelGold': 5}|
 
 ### 获得金币、道具及皮肤
 接口地址: /api/award/:account
@@ -384,3 +402,21 @@ json示例:
 | ---- | ---------------------------------------------------- |
 | 请求 |{"type":"skin", "goodId":"001", "goodNum":1}|
 | 应答 |{"code":0}]}|
+
+### 获得游戏版本
+接口地址: /api/gameVersions/all
+
+请求方式: GET
+
+请求参数及返回值说明:
+
+| 类型 |  参数名  |  类型   | 是否必须 |                      说明                     |
+| ---- | ------- | ------- | ------- | -------------------------------------------- |
+| 应答 |   code   | Integer|    Y    |       返回购买结果，0获取成功,其他系统错误       |
+| 应答 | gmvrslist|GameVersionList|    Y    |       游戏版本号及更新时间列表           |
+
+json示例:
+
+| 类型 |                          json                        |
+| ---- | ---------------------------------------------------- |
+| 应答 |{"code":0, "gmvrslist":[{version: '1.0.1',updateTime: 'Mon, 15 Oct 2018 09:49:49 GMT'}]}|
