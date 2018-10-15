@@ -365,9 +365,9 @@ json示例:
 | 应答 |{"code":  0, 'propsName': 'prop1', 'skinName': "", 'levelGold': 5}|
 
 ### 获得金币、道具及皮肤
-接口地址: .api/award/:account
+接口地址: /api/award/:account
 
-请求方式: GET
+请求方式: POST
 
 请求参数及返回值说明:
 
