@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
-import pymysql
+from flask_socketio import SocketIO
 
 app = Flask(__name__, static_folder = "./dist/static", template_folder = "./dist")
 
@@ -17,5 +17,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 #认证加密程度
 login_manager.session_protection='strong'
+
+socketio = SocketIO(app)
 
 from .route import *

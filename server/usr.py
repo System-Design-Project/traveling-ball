@@ -1,8 +1,22 @@
 from flask import jsonify, request
 from flask_login import login_user,logout_user,login_required,current_user
-from server import db, app, login_manager
+from server import db, app, login_manager, socketio
+from flask_socketio import emit
 from .Handler.hd_base import require
 from .models import User
+
+@socketio.on('connect')
+def test_connect():
+    print('Client connected')
+
+@socketio.on('disconnect')
+def test_disconnect():
+    print('Client disconnected')
+
+@socketio.on('roll', namespace='/')
+def handle_my_custom_event(json):
+    print('/roll')
+    print(str(json))
 
 @app.route('/api/newAccount', methods=['POST'])
 @require('account', 'nickname', 'password')
@@ -32,6 +46,21 @@ def addNewUsr():
 @login_manager.user_loader
 def load_user(userid):
     return User.query.get(userid)
+
+@socketio.on('login', namespace='/')
+def gameLogin(request):
+    response = {
+        'data': 0
+    }
+
+    print(request)
+    account = request['name']
+    password = request['paswd']
+    if account == '' or password == '':
+        emit('response', response, namespace='/')
+    print('account: '+account+', password: '+password)
+    response['data'] = 1
+    emit('response', response, namespace='/')
 
 @app.route('/api/login', methods=['POST'])
 @require('account', 'password')

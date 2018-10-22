@@ -24,6 +24,8 @@ flask-sqlalchemy
 flask-cors
 pymysql
 flask_login
+flask_socketio
+eventlet
 
 flask-sqlalchemy π”√
 https://blog.csdn.net/zengchen__acmer/article/details/45032033
