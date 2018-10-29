@@ -131,8 +131,8 @@ CREATE TABLE users_levelRecord(
 -- AUTO_INCREMENT=1;
 --
 -- -- test data
--- INSERT INTO users(account,nickname,mail,password,goalCoin) VALUES('root','backendtest','12345678@qq.com','12345678',30);
--- INSERT INTO users(account,nickname,mail,password) VALUES('1512190210','1','87654321@qq.com','12345678');
+INSERT INTO users(account,nickname,mail,password,goalCoin) VALUES('root','backendtest','12345678@qq.com','12345678',30);
+INSERT INTO users(account,nickname,mail,password) VALUES('1512190210','1','87654321@qq.com','12345678');
 --
 -- INSERT INTO props(propsName,description,value,isInStore) VALUES('prop1','this is prop1',3,FALSE);
 -- INSERT INTO props(propsName,description,value,isInStore) VALUES('prop2','this is prop2',2,TRUE);

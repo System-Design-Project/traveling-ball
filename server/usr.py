@@ -13,10 +13,23 @@ def test_connect():
 def test_disconnect():
     print('Client disconnected')
 
-@socketio.on('roll', namespace='/')
-def handle_my_custom_event(json):
-    print('/roll')
-    print(str(json))
+
+@socketio.on('signup', namespace='/')
+def gameSignup(request):
+    print(request)
+    
+    p_account = request['tele']
+    p_username = request['usern']
+    p_password = request['userp']
+    p_mail = request['email']
+    if not p_account or not p_username or not p_password:
+        return
+
+    usr = User.query.get(p_account)
+    if not usr:
+        newUser = User(account=p_account, nickname=p_username, password=p_password, mail=p_mail)
+        db.session.add(newUser)
+        db.session.commit()
 
 @app.route('/api/newAccount', methods=['POST'])
 @require('account', 'nickname', 'password')
@@ -31,7 +44,6 @@ def addNewUsr():
     p_mail = request.json.get('mail',None)
 
     usr = User.query.get(p_account)
-    print(usr)
     if (usr == None):
         response['code'] = 0
         newUser = User(account=p_account, nickname=p_username, password=p_password, mail=p_mail)
@@ -50,16 +62,23 @@ def load_user(userid):
 @socketio.on('login', namespace='/')
 def gameLogin(request):
     response = {
-        'data': 0
+        'data': 3
     }
-
     print(request)
+
     account = request['name']
     password = request['paswd']
     if account == '' or password == '':
         emit('response', response, namespace='/')
-    print('account: '+account+', password: '+password)
-    response['data'] = 1
+        return
+
+    usrLog = User.query.get(account)
+    if not usrLog:
+        response['data'] = 1
+    elif password != usrLog.password:
+        response['data'] = 2
+    elif password == usrLog.password:
+        response['data'] = 0
     emit('response', response, namespace='/')
 
 @app.route('/api/login', methods=['POST'])
@@ -90,7 +109,7 @@ def Login():
             response['nickname'] = usrLog.nickname
             response['goalCoin']= usrLog.goalCoin
         # print(user)
-
+    print(response)
     return jsonify(response)
 
 @app.route('/api/logout', methods=['POST'])
